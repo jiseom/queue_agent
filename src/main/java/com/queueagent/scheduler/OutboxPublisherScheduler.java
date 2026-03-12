@@ -22,7 +22,7 @@ public class OutboxPublisherScheduler {
      * [Transactional Outbox Publisher]
      * DB에 저장된 PENDING 상태의 메시지를 1,000건씩 읽어 MQ로 확실히 전송합니다.
      */
-//    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 1000)
     public void publishPendingMessages() {
         Slice<InventoryOutbox> pendingMessages = outboxRepository.findByStatus(
                 OutboxStatus.PENDING,

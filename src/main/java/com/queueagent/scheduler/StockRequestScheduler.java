@@ -18,7 +18,7 @@ public class StockRequestScheduler {
     private final TempStockRequestRepository tempRepository;
     private final InventoryService inventoryService; // 실제 비즈니스 로직 담당
 
-//    @Scheduled(fixedDelay = 1000) // 1초 간격 실행
+    @Scheduled(fixedDelay = 1000) // 1초 간격 실행
     public void processStockRequests() {
         // 1. 1,000건 단위 청크 조회
         PageRequest pageRequest = PageRequest.of(0, 1000);
