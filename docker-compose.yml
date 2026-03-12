@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # MySQL: 수백만 건의 데이터를 담을 저장소
+  db:
+    image: mysql:8.0
+    container_name: queue-agent-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_DATABASE: queue_agent_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  # RabbitMQ: 로컬에서 장애 복구(DLQ)를 시뮬레이션할 브로커
+  mq:
+    image: rabbitmq:3-management
+    container_name: queue-agent-mq
+    ports:
+      - "5672:5672"    # 애플리케이션 연동용
+      - "15672:15672"  # 관리자 화면 (localhost:15672)
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}

@@ -51,6 +51,9 @@ release.properties
 Thumbs.db
 ehthumbs.db
 
+# Database volume
+mysql_data/
+
 # Environment variables
 .env
 .env.local
@@ -59,3 +62,5 @@ ehthumbs.db
 # Application properties with sensitive data
 **/application-local.yml
 **/application-local.properties
+
+*.md
