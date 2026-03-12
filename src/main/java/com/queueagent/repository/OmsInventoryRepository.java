@@ -12,11 +12,12 @@ import java.time.LocalDateTime;
 @Repository
 public interface OmsInventoryRepository extends JpaRepository<ProductStock, String> {
 
-    @Modifying(clearAutomatically = true) // 업데이트 후 영속성 컨텍스트 초기화로 정합성 유지
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE ProductStock p " +
             "SET p.currentQuantity = p.currentQuantity + :quantity, " +
             "    p.updatedAt = :now " +
-            "WHERE p.productCode = :productCode")
+            "WHERE p.productCode = :productCode " +
+            "AND p.currentQuantity + :quantity >= 0")
     int updateQuantity(
             @Param("productCode") String productCode,
             @Param("quantity") Integer quantity,
