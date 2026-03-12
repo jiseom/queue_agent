@@ -4,9 +4,11 @@ import com.queueagent.enums.OutboxStatus;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Table(name="inventory_outbox")
 public class InventoryOutbox {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
