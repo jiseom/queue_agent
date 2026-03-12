@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -20,7 +21,7 @@ public class DlqAnalysisScheduler {
     private final DlqEventRepository dlqEventRepository;
     private final AiIncidentAnalyzerService aiIncidentAnalyzerService;
 
-    // @Scheduled(fixedDelay = 300000) // 5분마다
+    @Scheduled(fixedDelay = 300000) // 5분마다
     public void analyzeDlqEvents() {
         List<DlqGroupCountProjection> groups = dlqEventRepository.countGroupByErrorType();
 
@@ -49,8 +50,10 @@ public class DlqAnalysisScheduler {
                 log.info("DLQ 분석 완료 - errorType={}, count={}\n{}",
                         errorType, count, report);
 
-                samples.forEach(DlqEvent::markAnalyzed);
-                dlqEventRepository.saveAll(samples);
+                dlqEventRepository.markAllByErrorTypeAsAnalyzed(
+                        errorType,
+                        LocalDateTime.now()
+                );
 
             } catch (Exception e) {
                 log.error("DLQ 분석 실패 - errorType={}", errorType, e);
