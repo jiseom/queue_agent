@@ -12,7 +12,8 @@ public class AiIncidentAnalyzer {
         StringBuilder sb = new StringBuilder();
 
         sb.append("당신은 OMS/WMS 재고 장애 분석가입니다.\n");
-        sb.append("다음 DLQ 이벤트 그룹을 분석해 장애 리포트를 작성하세요.\n\n");
+        sb.append("아래 DLQ 이벤트 데이터만을 근거로 장애 리포트를 작성하세요.\n");
+        sb.append("데이터에 없는 내용은 추측하지 말고, 각 항목은 3줄 이내로 간결하게 작성하세요.\n\n");
 
         sb.append("[장애 유형]\n");
         sb.append(errorType).append("\n\n");
