@@ -5,7 +5,6 @@ import com.anthropic.core.http.StreamResponse;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.models.messages.Model;
 import com.anthropic.models.messages.RawMessageStreamEvent;
-import com.anthropic.models.messages.ThinkingConfigAdaptive;
 import com.queueagent.entity.DlqEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,7 @@ public class AiIncidentAnalyzerService {
 
         MessageCreateParams params = MessageCreateParams.builder()
                 .model(Model.CLAUDE_OPUS_4_6)
-                .maxTokens(4096L)
-                .thinking(ThinkingConfigAdaptive.builder().build())
+                .maxTokens(800L)
                 .addUserMessage(prompt)
                 .build();
 
