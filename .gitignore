@@ -63,4 +63,4 @@ mysql_data/
 **/application-local.yml
 **/application-local.properties
 
-*.md
+
